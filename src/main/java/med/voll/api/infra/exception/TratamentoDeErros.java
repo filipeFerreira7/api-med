@@ -34,6 +34,6 @@ public class TratamentoDeErros {
 
     @ExceptionHandler(TokenInvalidoException.class)
     public ResponseEntity invalidToken(TokenInvalidoException ex) {
-        return ResponseEntity.badRequest().body("Token inválido ou expirado! ");
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }

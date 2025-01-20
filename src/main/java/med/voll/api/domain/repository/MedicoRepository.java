@@ -1,5 +1,8 @@
 package med.voll.api.domain.repository;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import med.voll.api.domain.model.Especialidade;
 import med.voll.api.domain.model.Medico;
 import org.springframework.data.domain.Page;
@@ -19,4 +22,8 @@ public interface MedicoRepository extends JpaRepository<Medico,Long> {
 
     @Query(value = "select m.ativo from Medico m where m.id = :id")
     Boolean findAtivoById(Long id);
+
+    boolean existsByCrm(String crm);
+
+    boolean existsByEmail(String email);
 }

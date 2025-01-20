@@ -33,7 +33,7 @@ class MedicoRepositoryTest {
     @Test
     @DisplayName("Deveria devolver null quando o unico medico cadastrado não está disponivel na data")
     void escolherMedicoAleatorioLivreNaDataCenario1() {
-        
+
 
         var nextMonday10Am = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY)).atTime(10,0);
 

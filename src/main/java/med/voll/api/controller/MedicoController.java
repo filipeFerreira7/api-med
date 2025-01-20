@@ -38,31 +38,28 @@ public class MedicoController {
 
     @GetMapping
     public ResponseEntity<Page<DadosCadastroDTOResponse>>list(@PageableDefault(size = 10, sort = {"nome"}) Pageable pag){
-        var page =  repository.findAllByAtivoTrue(pag).map(DadosCadastroDTOResponse::new);
+        var page =  medicoService.list(pag);
         return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity put(@RequestBody @Valid DadosAtualizacaoMedicoDTO data){
-        var medico = repository.getReferenceById(data.id());
-        medico.atualizarInformacoes(data);
-
-        return ResponseEntity.ok(new DadosDetalhadoMedicoDTO(medico));
+        var medico = medicoService.put(data);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity delete(@PathVariable Long id){
-        var medico = repository.getReferenceById(id);
-        medico.excluir();
+
 
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity detail(@PathVariable Long id){
-        var medico = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhadoMedicoDTO(medico));
+        var medico = medicoService.detail(id);
+        return ResponseEntity.ok(medico);
     }
 }

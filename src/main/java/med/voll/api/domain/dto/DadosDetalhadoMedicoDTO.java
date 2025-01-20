@@ -24,4 +24,7 @@ public DadosDetalhadoMedicoDTO(Medico medico){
             medico.getEspecialidade(),
             medico.getEndereco());
 }
+    public static DadosDetalhadoMedicoDTO valueOf (Medico medico){
+        return new DadosDetalhadoMedicoDTO(medico.getId(),medico.getNome(), medico.getEmail(), medico.getCrm(), medico.getTelefone(), medico.getEspecialidade(), medico.getEndereco());
+    }
 }
