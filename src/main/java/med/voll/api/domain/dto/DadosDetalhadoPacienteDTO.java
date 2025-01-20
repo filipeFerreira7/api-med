@@ -21,4 +21,8 @@ public DadosDetalhadoPacienteDTO(Paciente paciente){
             paciente.getCpf(),
             paciente.getEndereco());
 }
+
+    public static DadosDetalhadoPacienteDTO valueOf(Paciente paciente) {
+    return new DadosDetalhadoPacienteDTO(paciente.getId(), paciente.getNome(), paciente.getEmail(), paciente.getTelefone(), paciente.getCpf(), paciente.getEndereco());
+    }
 }

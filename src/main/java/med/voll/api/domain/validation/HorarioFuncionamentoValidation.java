@@ -15,7 +15,7 @@ public class HorarioFuncionamentoValidation implements ValidadorAgendamentoDeCon
         var checkHourAfter = dataConsulta.getHour() > 18 ;
 
         if(checkSunday || checkHourAfter || checkHourBefore) {
-            throw new ValidacaoException("Consulta fora do horário de funcionamento. ");
+            throw new ValidacaoException("fora do horário","Consulta fora do horário de funcionamento. ");
         }
     }
 }

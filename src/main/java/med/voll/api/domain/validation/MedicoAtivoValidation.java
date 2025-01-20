@@ -19,7 +19,7 @@ public class MedicoAtivoValidation implements ValidadorAgendamentoDeConsulta {
         }
         var medicoIsAtivo = repository.findAtivoById(data.idMedico());
         if(!medicoIsAtivo){
-            throw new ValidacaoException("Consulta não pode ser agendada com médico excluído. ");
+            throw new ValidacaoException("médico indisponivel","Consulta não pode ser agendada com médico excluído. ");
         }
     }
 }

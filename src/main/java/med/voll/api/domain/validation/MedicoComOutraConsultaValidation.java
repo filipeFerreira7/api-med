@@ -16,7 +16,7 @@ public class MedicoComOutraConsultaValidation implements ValidadorAgendamentoDeC
         var medicoPossuiOutraConsultaNoMesmoHorario = repository.existsByMedicoIdAndDateTimeAndMotivoCancelamentoIsNull(data.idMedico(),data.dateTime());
 
         if(medicoPossuiOutraConsultaNoMesmoHorario){
-            throw new ValidacaoException("Médico já possui outra consulta agendada nesse mesmo horário. ");
+            throw new ValidacaoException("médico indisponível","Médico já possui outra consulta agendada nesse mesmo horário. ");
         }
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class TratamentoDeErros {
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity exceptionNotFound(){
         return ResponseEntity.notFound().build();
@@ -29,7 +30,8 @@ public class TratamentoDeErros {
 
     @ExceptionHandler(ValidacaoException.class)
     public ResponseEntity businessRules (ValidacaoException ex){
-        return ResponseEntity.badRequest().body(ex.getMessage());
+        var error = new ErrorDataValidation(ex.getFieldName(), ex.getMessage());
+        return ResponseEntity.badRequest().body(error);
     }
 
     @ExceptionHandler(TokenInvalidoException.class)

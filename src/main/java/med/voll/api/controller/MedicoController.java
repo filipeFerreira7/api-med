@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import med.voll.api.domain.dto.DadosAtualizacaoMedicoDTO;
 import med.voll.api.domain.dto.DadosCadastroDTO;
 import med.voll.api.domain.dto.DadosCadastroDTOResponse;
-import med.voll.api.domain.dto.DadosDetalhadoMedicoDTO;
 import med.voll.api.domain.model.Medico;
 import med.voll.api.domain.repository.MedicoRepository;
 import med.voll.api.domain.service.MedicoService;
@@ -52,8 +51,7 @@ public class MedicoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity delete(@PathVariable Long id){
-
-
+         medicoService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

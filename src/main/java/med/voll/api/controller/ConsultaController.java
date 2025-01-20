@@ -42,8 +42,7 @@ public class ConsultaController {
 
     @GetMapping
     public ResponseEntity<Page<ResponseAgendarConsulta>>list(Pageable pag){
-
-        var page =  repository.findAllByAtivoTrue(pag).map(ResponseAgendarConsulta::new);
+        var page = consultaService.list(pag);
         return ResponseEntity.ok(page);
     }
 }

@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import med.voll.api.domain.dto.*;
 import med.voll.api.domain.model.Paciente;
 import med.voll.api.domain.repository.PacienteRepository;
+import med.voll.api.domain.service.PacienteService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,45 +23,40 @@ public class PacienteController {
     @Autowired
     private PacienteRepository repository;
 
+    @Autowired
+    private PacienteService pacienteService;
+
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid PacienteDadosCadastroDTO data, UriComponentsBuilder uriBuilder){
-       var paciente = new Paciente(data);
-        repository.save(paciente);
-
-       var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
-       return ResponseEntity.created(uri).body(new DadosDetalhadoPacienteDTO(paciente));
+       var paciente = pacienteService.cadastrar(data,uriBuilder);
+       return ResponseEntity.ok(DadosDetalhadoPacienteDTO.valueOf(paciente));
     }
 
 
     @GetMapping
     public ResponseEntity<Page<DadosCadastroPacienteDTOResponse>>list(@PageableDefault(size = 10, sort = {"nome"}) Pageable pag){
-        var page =  repository.findAllByAtivoTrue(pag).map(DadosCadastroPacienteDTOResponse::new);
-
-    return ResponseEntity.ok(page);
+        var page = pacienteService.list(pag);
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity put(@RequestBody @Valid DadosAtualizacaoPacienteDTO data){
-        var paciente = repository.getReferenceById(data.id());
-        paciente.atualizarInformacoes(data);
-
-        return ResponseEntity.ok(new DadosDetalhadoPacienteDTO(paciente));
+        var paciente = pacienteService.put(data);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity delete(@PathVariable Long id){
-        var paciente = repository.getReferenceById(id);
-        paciente.excluir();
-
+        pacienteService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity detail(@PathVariable Long id){
-        var paciente = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhadoPacienteDTO(paciente));
+        var paciente = pacienteService.detail(id);
+        return ResponseEntity.ok(paciente);
     }
 }
