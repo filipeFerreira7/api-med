@@ -1,5 +1,7 @@
 package med.voll.api.infra.exception;
 
+import org.springframework.validation.Errors;
+
 public class ValidacaoException extends RuntimeException {
     private String fieldName;
 
@@ -11,4 +13,5 @@ public class ValidacaoException extends RuntimeException {
     public String getFieldName() {
         return fieldName;
     }
+
 }

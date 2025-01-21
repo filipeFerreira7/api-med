@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.domain.dto.AgendarConsultaDTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -39,6 +40,14 @@ public class Consulta {
     private MotivoCancelamento motivoCancelamento;
 
     private Boolean ativo;
+
+    public Consulta(Long id, Medico medico, Paciente paciente, LocalDateTime dateTime) {
+        this.id = id;
+        this.medico = medico;
+        this.paciente = paciente;
+        this.dateTime = dateTime;
+        this.ativo = true;
+    }
 
     public void cancelar(MotivoCancelamento motivo){
         this.motivoCancelamento = motivo;
